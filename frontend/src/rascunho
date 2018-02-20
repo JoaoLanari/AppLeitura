@@ -1,0 +1,52 @@
+<Row>
+          <Col s={12} m={12} l={12}>
+            <h1>Aplicativo Leitura</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col s={12} m={4} l={4}>
+            <h3>React</h3>
+            <Card 
+              className='blue-grey darken-1' 
+              textClassName='white-text' 
+              title='Post de React' 
+              actions={[<a href='#'>Leia todo post...</a>,<a href='#'><Badge>1</Badge></a>]}
+            >
+              Esse é um post de React
+		        </Card>
+            <Card 
+              className='blue-grey darken-1' 
+              textClassName='white-text' 
+              title='Post de React' 
+              actions={[<a href='#'>Leia todo post...</a>,<a href='#'><Badge>1</Badge></a>]}
+            >
+              Esse é um post de React
+		        </Card>
+          </Col>
+          <Col s={12} m={4} l={4}>
+            <h3>Redux</h3>
+            <Card 
+              className='blue-grey darken-1' 
+              textClassName='white-text' 
+              title='Post de React' 
+              actions={[
+                <a href='#'>Leia todo post...</a>,
+                <a href='#'><Badge>1</Badge></a>
+              ]}
+            >
+              Esse é um post de React
+		        </Card>
+          </Col>
+          <Col s={12} m={4} l={4}>
+            <h3>Udacity</h3>
+            <Card 
+              className='red lighten-3' 
+              textClassName='cyan accent-4' 
+              title='Post de React'
+              subtitle="Subtitle" 
+              actions={[<a href='#' style={{color: 'black'}}>Leia todo post...</a>,<a href='#'><Badge>1</Badge></a>]}
+            >
+              Esse é um post de React
+		        </Card>
+          </Col>
+        </Row>

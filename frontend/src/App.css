@@ -1,0 +1,43 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.navbar-leitura {
+    background: #9C27B0;
+    margin-bottom: 10px;
+}
+
+.btn_new_post {
+    background: #7B1FA2;
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    width: 50px;
+    height: 50px;
+
+}
+
+.btn_new_post:hover {
+    background: #9C27B0;
+}
+
+.card-panel {
+    background: #E1BEE7;
+    margin-bottom: 0.5px;
+    margin-top: 0.5px;
+    color: #212121;
+}
+
+.post-header {
+    color: #212121;
+}
+
+.icon-button {
+    background: transparent;
+    border: none;
+}
+
+.icon-button:focus {
+    background: transparent;
+    border: none;  
+}

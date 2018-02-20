@@ -1,2 +1,2 @@
 # AppLeitura
-Projeto REact e Redux da Udacity
+Projeto React e Redux da Udacity
