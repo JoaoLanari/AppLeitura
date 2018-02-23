@@ -11,7 +11,7 @@ nav {
 }
 
 nav a {
-    font-size: 50px;
+    font-size: 300%;
 }
 
 .btn-nav-group {
@@ -33,13 +33,11 @@ nav a {
 }
 
 .nav-filter {
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;;
     background: transparent;
     color: #ffffff;
     font-size: 10px;
-    text-align: center;
+    text-align: right;
+    margin-bottom: 0;
 }
 
 .nav-filter span select option {

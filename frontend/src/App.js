@@ -13,49 +13,50 @@ import AppGrid from './Layouts/AppGrid'
 import AppNav from './AppNav'
 import './App.css'
 
-let posts = [
-  {
-    id: 1,
-    categoria: 'react',
-    titulo: 'React e a melhor ferramenta',
-    conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
-    voteScore: 10
-  },
-  {
-    id: 2,
-    categoria: 'redux',
-    titulo: 'Redux e a melhor ferramenta',
-    conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
-    voteScore: 15
-  },
-  {
-    id: 3,
-    categoria: 'udacity',
-    titulo: 'Udacity tem o melhor curso de React e Redux',
-    conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
-    voteScore: 12
-  }
-]
-
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      posts: [
+        {
+          id: 1,
+          categoria: 'react',
+          titulo: 'React e a melhor ferramenta',
+          conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
+          voteScore: 10
+        },
+        {
+          id: 2,
+          categoria: 'redux',
+          titulo: 'Redux e a melhor ferramenta',
+          conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
+          voteScore: 15
+        },
+        {
+          id: 3,
+          categoria: 'udacity',
+          titulo: 'Udacity tem o melhor curso de React e Redux',
+          conteudo: 'Mussum Ipsum, cacilds vidis litro abertis. Nec orci ornare consequat. Praesent lacinia ultrices consectetur. Sed non ipsum felis.',
+          voteScore: 12
+        }
+      ]
+    }
+  }
+
   render() {
+    //let { posts } = this.state.posts
     return (
       <div>
-        <AppNav />
-        
-        <div className='btn-new-post'>
-          <Link to='/newpost' />
-        </div>
+        <AppNav />       
 
         <Switch>
           <Route exact path={'/'} render={() => (
-            posts.map((post, key) => (
-              <PostSummary key={key} post={post} />
-            ))
+            <PostSummary posts={this.state.posts} />
           )} />
+          
           <Route exact path={'/react'} render={() => (
-            posts.filter((post) => post.categoria === 'react')
+            this.state.posts.filter((post) => post.categoria === 'react')
               .map((post, key) => (
                 <Row key={key}>
                   <Col offset='s1 m2 l2' s={10} m={8}>
@@ -69,7 +70,7 @@ class App extends Component {
           )} />
 
           <Route strict path={'/redux'} render={() => (
-            posts.filter((post) => post.categoria === 'redux')
+            this.state.posts.filter((post) => post.categoria === 'redux')
               .map((post, key) => (
                 <Row key={key}>
                   <Col offset='s1 m2 l2' s={10} m={8}>
@@ -84,7 +85,7 @@ class App extends Component {
           )} />
 
           <Route strict path={'/udacity'} render={() => (
-            posts.filter((post) => post.categoria === 'udacity')
+            this.state.posts.filter((post) => post.categoria === 'udacity')
               .map((post, key) => (
                 <Row key={key}>
                   <Col offset='s1 m2 l2' s={10} m={8}>
@@ -95,8 +96,7 @@ class App extends Component {
           )} />
 
           <Route path={`/react_1`} component={PostDetail} />
-
-          <Route path={'/newpost'} component={NewPost}/>
+          <Route path={'/newpost'} component={NewPost} />
         </Switch>
       </div>
     )
