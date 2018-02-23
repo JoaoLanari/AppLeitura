@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import {
-    Link,
-    Route
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
     Row,
     Col,
@@ -14,9 +11,28 @@ import {
 
 class PostSummary extends Component {
     render() {
-        let { posts } = this.props
-        console.log(posts)
-        const url = `/react_1`
+        let showingPosts = []
+        if(this.props.location){
+            switch (this.props.location.pathname) {
+                case '/react':
+                    this.props.posts.filter(post => post.categoria === 'react')
+                        .map(post => showingPosts.push(post))
+                    break;
+                case '/redux':
+                    this.props.posts.filter(post => post.categoria === 'redux')
+                        .map(post => showingPosts.push(post))
+                    break;
+                case '/udacity':
+                    this.props.posts.filter(post => post.categoria === 'udacity')
+                        .map(post => showingPosts.push(post))
+                    break;            
+                default:
+                    break;
+            }
+        } else {
+            showingPosts = this.props.posts
+        }
+        
         return (
             <div>
                 <Row className='nav-filter'>
@@ -31,11 +47,16 @@ class PostSummary extends Component {
                     </Col>
                     <Col s={1} m={2} />
                 </Row>
-                {posts.map((post, key) => (
+                {showingPosts.map((post, key) => (
                     <Row key={key}>
                         <Col offset='s1 m2 l2' s={10} m={8}>
                             <CardPanel>
-                                <Link to={url} className='post-header'><h5>{post.titulo}</h5></Link>
+                                <Link 
+                                    to={`/${post.categoria}/${post.id}`} 
+                                    className='post-header'
+                                >
+                                    <h5>{post.titulo}</h5>
+                                </Link>
                                 <p>{post.conteudo}</p>
                                 <span style={{ fontSize: '0.8em' }}>Score: {post.voteScore}</span><br />
                                 <span style={{ fontSize: '0.8em' }}>

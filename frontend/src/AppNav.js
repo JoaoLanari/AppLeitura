@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Dropdown, NavItem } from 'react-materialize'
 
 class AppNav extends Component {
 
@@ -11,9 +10,9 @@ class AppNav extends Component {
           <Link to='/'>Aplicativo Leitura</Link>
         </nav>
         <div className='btn-nav-group'>
-          <Link to='react' style={{ width: '100px' }}><b>React</b> | </Link>
-          <Link to='redux'><b>Redux</b> | </Link>
-          <Link to='udacity'><b>Udaity</b></Link>
+          <Link to='/react' style={{ width: '100px' }}><b>React</b> | </Link>
+          <Link to='/redux'><b>Redux</b> | </Link>
+          <Link to='/udacity'><b>Udaity</b></Link>
         </div>
       </div>
     )
