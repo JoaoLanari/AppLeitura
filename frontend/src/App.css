@@ -1,28 +1,79 @@
 body {
+    background: #212121;
     font-family: Helvetica, Arial, sans-serif;
 }
 
-.navbar-leitura {
+nav {
     background: #9C27B0;
-    margin-bottom: 10px;
+    height: 75px;
+    text-align: center;
+    padding: 5px;
 }
 
-.btn_new_post {
-    background: #7B1FA2;
+nav a {
+    font-size: 50px;
+}
+
+.btn-nav-group {
+    text-align: center;
+    margin: 0 auto 5px auto;
+    background: #E1BEE7;
+    width: 100%;
+}
+
+.btn-nav-group a { 
+    color: #212121;
+    font-size: 20px;
+}
+
+.btn-nav a {
+    color: #212121;
+    font-size: 20px;
+    margin: 0;
+}
+
+.nav-filter {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;;
+    background: transparent;
+    color: #ffffff;
+    font-size: 10px;
+    text-align: center;
+}
+
+.nav-filter span select option {
+    color:  #ffffff;
+}
+
+.nav-filter button {
+    background: transparent;
+    border: transparent;
+    font-size: 12px;
+}
+
+.btn-new-post {
     position: fixed;
-    bottom: 3%;
-    right: 3%;
+    right: 65px;
+    bottom: 25px;
+}
+
+.btn-new-post a {
+    display: block;
     width: 50px;
     height: 50px;
-
-}
-
-.btn_new_post:hover {
-    background: #9C27B0;
+    border-radius: 50%;
+    background: #7B1FA2;
+    background-image: url('./Icons/mode_edit_white_2x.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 28px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    font-size: 0;
 }
 
 .card-panel {
-    background: #E1BEE7;
+    background: #FFFFFF;
     margin-bottom: 0.5px;
     margin-top: 0.5px;
     color: #212121;
