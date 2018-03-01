@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import {
     Row,
     Col,
@@ -11,6 +12,8 @@ import {
 
 class PostSummary extends Component {
     render() {
+        console.log(this.props)
+        /*
         let showingPosts = []
         if(this.props.location){
             switch (this.props.location.pathname) {
@@ -32,10 +35,10 @@ class PostSummary extends Component {
         } else {
             showingPosts = this.props.posts
         }
-        
+        */
         return (
             <div>
-                <Row className='nav-filter'>
+                {/*<Row className='nav-filter'>
                     <Col offset='s1 m2 l2' s={10} m={8}>
                         <span><b>Ordenar por:</b></span>
                         <Dropdown trigger={
@@ -68,12 +71,14 @@ class PostSummary extends Component {
                 ))}
                 <div className='btn-new-post'>
                     <Link to='/newpost' />
-                </div>
+            </div>*/}
             </div>
         )
     }
 }
 
+function mapStateToProps ({ posts }) {
+    return { posts: posts }
+}
 
-
-export default PostSummary
+export default connect(mapStateToProps)(PostSummary)

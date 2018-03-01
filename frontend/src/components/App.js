@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {
+  BrowserRouter as Router,
   Route,
   Switch
 } from 'react-router-dom'
@@ -46,21 +47,23 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <AppNav />
-        <Switch>
-          <Route exact path={'/'} render={() => (
-            <PostSummary posts={this.state.posts} />
-          )} />
-          <Route path={'/newpost'} exact component={NewPost} />
-          <Route path='/:category' exact component={props => (
-            <PostSummary {...props} posts={this.state.posts}/>)} 
-          />
-          <Route path='/:category/:id' exact component={props => (
-            <PostDetail {...props} posts={this.state.posts} />)} 
-          />
-        </Switch>
-      </div>
+      <Router>
+        <div>
+          <AppNav />
+          <Switch>
+            <Route exact path={'/'} render={() => (
+              <PostSummary />
+            )} />
+            <Route path={'/newpost'} exact component={NewPost} />
+            <Route path='/:category' exact component={props => (
+              <PostSummary {...props} />)} 
+            />
+            <Route path='/:category/:id' exact component={props => (
+              <PostDetail {...props} posts={this.state.posts} />)} 
+            />
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }
