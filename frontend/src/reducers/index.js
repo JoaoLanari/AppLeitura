@@ -1,37 +1,25 @@
-  import {
+import _ from 'lodash'
+import { combineReducers } from 'redux'
+
+import {
+    FETCH_POSTS,
+    FETCH_POSTS_CATEGORY,
     ADD_POST,
-    VOTE_POST
+    VOTE_POST,
+    GET_CATEGORIES,
+    SELECT_CATEGORY
 } from '../actions/index'
 
-const inicialState = {
-  "8xf0y6ziyjabvozdd253nd": {
-    id: '8xf0y6ziyjabvozdd253nd',
-    timestamp: 1467166872634,
-    title: 'Udacity is the best place to learn React',
-    body: 'Everyone says so after all.',
-    author: 'thingtwo',
-    category: 'react',
-    voteScore: 6,
-    deleted: false,
-    commentCount: 2
-  },
-  "6ni6ok3ym7mf1p33lnez": {
-    id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
-    title: 'Learn Redux in 10 minutes!',
-    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
-    author: 'thingone',
-    category: 'redux',
-    voteScore: -5,
-    deleted: false,
-    commentCount: 0
-  }
-}
 
-function posts (state = inicialState, action) {
-  const { id, timestamp, title, body, author, category, newScore } = action
+function posts (state = {}, action) {
+  const { id, timestamp, title, body, author, category, newScore, payload } = action
 
   switch (action.type) {    
+    case FETCH_POSTS : 
+      return _.mapKeys(payload, 'id')
+      
+    case FETCH_POSTS_CATEGORY : 
+      return _.mapKeys(payload, 'id')
 
     case ADD_POST :
       return {
@@ -54,4 +42,33 @@ function posts (state = inicialState, action) {
   }
 }
 
-export default posts
+function categories (state = {}, action) {
+  const { category, payload } = action
+
+  switch (action.type) {
+
+    case GET_CATEGORIES :
+      const categories = payload
+      return {
+        categories,
+        selectedCategory: 'all'
+      }  
+      break
+
+    case SELECT_CATEGORY :
+      return {
+        ...state,
+        selectedCategory: category
+      }
+      break
+  
+    default:
+      return state
+      break
+  }
+}
+
+export default combineReducers ({
+  posts,
+  categories
+})
