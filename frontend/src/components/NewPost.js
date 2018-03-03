@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addPost } from '../actions/index'
+import { getAllPosts, addPost } from '../actions/index'
 import {
     Row,
     Col,
@@ -15,7 +15,6 @@ class NewPost extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            timestamp: 1467166872634,
             title: '',
             body: '',
             author: '',
@@ -42,12 +41,14 @@ class NewPost extends Component {
     onSubmitPost(event){
         event.preventDefault()
         const id = makeid()
-        const timestamp = this.state.timestamp
+        const timestamp = new Date().getTime()
         const title = this.state.title
         const body = this.state.body
         const author = this.state.author
         const category = this.state.category
-        this.props.addPost(addPost({ id, timestamp, title, body, author, category }))
+        const newPost = {id, timestamp, title, body, author, category}
+        this.props.addPost(newPost)
+        this.props.getAllPosts()
         this.props.history.push('/')
     }
 
@@ -101,4 +102,4 @@ class NewPost extends Component {
 }
 
 
-export default connect(null, { addPost })(NewPost)
+export default connect(null, { getAllPosts, addPost })(NewPost)

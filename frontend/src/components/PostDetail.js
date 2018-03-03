@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 import {
     CardPanel,
     Icon,
@@ -7,9 +9,9 @@ import {
 } from 'react-materialize'
 
 class PostDetail extends Component {
+    
     render() {
-        let array = this.props.location.pathname.split('/')
-        let postId = array[2]
+        console.log((this.props.post.id))
         return (
             <div>
                 <Row>
@@ -17,25 +19,13 @@ class PostDetail extends Component {
                         <CardPanel>
                             <div className='post-header'>
                                 <h5>
-                                {this.props.posts.filter(post => post.id === postId)
-                                    .map(post => (
-                                        post.titulo
-                                    ))
-                                }
+                                    {this.props.post.title}
                                 </h5>
                             </div>
-                            <p>Autor: {this.props.posts.filter(post => post.id === postId)
-                                    .map(post => (
-                                        post.autor
-                                    ))
-                                }
+                            <p>Autor: {this.props.post.author}
                             </p>
                             <p>
-                                {this.props.posts.filter(post => post.id === postId)
-                                    .map(post => (
-                                        post.conteudo
-                                    ))
-                                } 
+                                {this.props.post.body}
                             </p>
                             <span>
                                 <button className='icon-button'>
@@ -48,24 +38,20 @@ class PostDetail extends Component {
                                 </button>
                             </span><br />
                             <span style={{ fontSize: '0.8em' }}>Score: 
-                                {this.props.posts.filter(post => post.id === postId)
-                                    .map(post => (
-                                        post.voteScore
-                                    ))
-                                } 
+                                {this.props.post.voteScore}
                             </span><br />
                             <span style={{ fontSize: '0.8em' }}>
-                                Comentários: 10
+                                Comentários: {this.props.post.commentCount}
                                 <button className='icon-button'>
                                     <Icon tiny>mode_edit</Icon>
                                 </button>
                             </span>
-                            <hr />
+                            {/*<hr />
                             <p>Autor: </p>
                             <p>Conteúdo </p>
                             <hr />
                             <p>Autor: </p>
-                            <p>Conteúdo </p>
+                            <p>Conteúdo </p>*/}
                         </CardPanel>
                     </Col>
                 </Row>
@@ -74,4 +60,12 @@ class PostDetail extends Component {
     }
 }
 
-export default PostDetail
+function mapStateToProps({ posts }) {
+
+    
+    return {
+        post: _.mapValues(posts.postSelected)
+    }
+}
+
+export default connect(mapStateToProps)(PostDetail)

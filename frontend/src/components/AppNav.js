@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories, selectCategoryAction } from '../actions/index' 
+import { getCategories, selectCategoryAction, getAllPosts, getPostsByCategory } from '../actions/index' 
 import { Link } from 'react-router-dom'
 
 class AppNav extends Component {
 
   componentWillMount(){
+    this.props.getAllPosts()
     this.props.getCategories()
   }
 
   selectCategory(category) {
-    this.props.selectCategoryAction(category)
+    
+    if (category === 'all'){
+      this.props.selectCategoryAction(category)
+      this.props.getAllPosts()
+    } else{
+      this.props.selectCategoryAction(category)
+      this.props.getPostsByCategory(category)
+    }
   }
 
   render() {
@@ -52,4 +60,9 @@ function mapStateToProps({ categories }) {
   }
 }
 
-export default connect(mapStateToProps, { getCategories, selectCategoryAction })(AppNav)
+export default connect(mapStateToProps, { 
+  getCategories, 
+  selectCategoryAction, 
+  getAllPosts, 
+  getPostsByCategory 
+})(AppNav)

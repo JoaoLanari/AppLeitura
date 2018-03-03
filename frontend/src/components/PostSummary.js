@@ -10,22 +10,12 @@ import {
     NavItem
 } from 'react-materialize'
 
-import { getAllPosts, getPostsByCategory } from '../actions/index'
+import { getAllPosts, getPostsByCategory, getPostById } from '../actions/index'
 
 class PostSummary extends Component {
-    
 
-    
     render() {
-        if (this.props.selectedCategory === 'all') {
-            this.props.getAllPosts()
-        } else if(this.props.selectedCategory === 'react'){
-            this.props.getPostsByCategory('react')
-        } else if(this.props.selectedCategory === 'redux'){
-            this.props.getPostsByCategory('redux')
-        } else if(this.props.selectedCategory === 'udacity'){
-            this.props.getPostsByCategory('udacity')
-        }
+
         return (
             <div>
                 <Row className='nav-filter'>
@@ -44,7 +34,8 @@ class PostSummary extends Component {
                     <Row key={key}>
                         <Col offset='s1 m2 l2' s={10} m={8}>
                             <CardPanel>
-                                <Link 
+                                <Link
+                                    onClick={() => this.props.getPostById(post.id)}
                                     to={`/${post.category}/${post.id}`} 
                                     className='post-header'
                                 >
@@ -72,11 +63,16 @@ function mapStateToProps({ posts, categories }) {
     const ids = Object.keys(posts).map((key) => key)
     
     return {
+        selectedCategory: categories.selectedCategory,
         posts: ids.map((key) => ({
             ...posts[key]
-        })),
-        selectedCategory: categories.selectedCategory
+        }))
+        
     }
 }
 
-export default connect(mapStateToProps, { getAllPosts, getPostsByCategory })(PostSummary)
+export default connect(mapStateToProps, { 
+    getAllPosts,
+    getPostsByCategory,
+    getPostById 
+})(PostSummary)

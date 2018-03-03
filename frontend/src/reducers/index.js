@@ -4,6 +4,7 @@ import { combineReducers } from 'redux'
 import {
     FETCH_POSTS,
     FETCH_POSTS_CATEGORY,
+    FETCH_POST_BY_ID,
     ADD_POST,
     VOTE_POST,
     GET_CATEGORIES,
@@ -20,6 +21,13 @@ function posts (state = {}, action) {
       
     case FETCH_POSTS_CATEGORY : 
       return _.mapKeys(payload, 'id')
+    
+    case FETCH_POST_BY_ID : {
+      return {
+        ...state,
+        postSelected: payload
+      }
+    }
 
     case ADD_POST :
       return {
@@ -50,8 +58,8 @@ function categories (state = {}, action) {
     case GET_CATEGORIES :
       const categories = payload
       return {
-        categories,
-        selectedCategory: 'all'
+        ...state,
+        categories
       }  
       break
 
