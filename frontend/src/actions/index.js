@@ -6,6 +6,8 @@ export const FETCH_POSTS_CATEGORY = 'FETCH_POSTS_CATEGORY'
 export const FETCH_POST_BY_ID = 'SELECT_POST_BY_ID'
 export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
+export const EDIT_POST = 'EDIT_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const SELECT_CATEGORY = 'SELECT_CATEGORY'
@@ -28,7 +30,7 @@ export function getPostsByCategory(category) {
   }
 }
 
-export function addPost( newPost ) {
+export function addPost(newPost) {
   return dispatch => {
     axios.post(
       `${url}/posts`,
@@ -39,16 +41,34 @@ export function addPost( newPost ) {
   }  
 }
 
-export function votePost( id, vote, newVoteScore) {
+export function votePost(id, vote, newVoteScore) {
   return dispatch => {
     axios.post(
       `${url}/posts/${id}`,
       { option: vote } ,
       { headers }
     )
-      .then( dispatch(votePostAction(id, newVoteScore)))}
+      .then(dispatch(votePostAction(id, newVoteScore)))}
 }
 
+export function editPost(id, title, body) {
+  return dispatch => {
+    axios.put(
+      `${url}/posts/${id}`,
+      { title: title, body: body },
+      { headers }
+    )
+      .then(dispatch(editPostAction(id, title, body)))
+  }
+}
+
+export function delePost(id) {
+  return dispatch => {
+    axios.delete(`${url}/posts/${id}`, { headers })
+      .then(dispatch(deletePostAction(id)))
+      .catch(err => console.lod(err))
+  }
+}
 
 export function getAllPostAction(data) {
   return {
@@ -56,7 +76,6 @@ export function getAllPostAction(data) {
     payload: data
   }
 }
-
 export function getPostsByCategoryAction(category, data) {
   return {
     type: FETCH_POSTS_CATEGORY,
@@ -88,6 +107,22 @@ export function votePostAction(id, newVoteScore) {
     type: VOTE_POST,
     id,
     newVoteScore
+  }
+}
+
+export function editPostAction(id, title, body) {
+  return {
+    type: EDIT_POST,
+    id,
+    title,
+    body
+  }
+}
+
+export function deletePostAction (id) {
+  return {
+    type: DELETE_POST,
+    id
   }
 }
 

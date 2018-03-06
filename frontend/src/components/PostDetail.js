@@ -13,7 +13,7 @@ import {
     Toast
 } from 'react-materialize'
 
-import { votePost } from '../actions/index'
+import { votePost, editPost, delePost } from '../actions/index'
 
 class PostDetail extends Component {
 
@@ -47,21 +47,33 @@ class PostDetail extends Component {
 
     updatePost(event) {
         event.preventDefault()
+        const id = this.props.post.id
+        const title = this.state.title
+        const body = this.state.body
+        this.props.editPost(id, title, body)
         this.setState({ menssage: 'Alterações Salvas!!!' })
         this.sleep(1500).then(() => {
             this.setState({ menssage: '' })
         })
+    }
 
+    delete(event) {
+        event.preventDefault()
+        const id = this.props.post.id
+        this.props.delePost(id)
+        this.props.history.push('/')
     }
 
     render() {
-        console.log(this.props.post.id)
+        console.log(this.context)
         return (
             <div>
                 <Row>
                     <Col offset='s1 m2 l2' s={10} m={8}>
                         <CardPanel>
                             <Button
+                                href='/'
+                                onClick={(event) => this.delete(event)}
                                 floating
                                 className='red'
                                 waves='light'
@@ -168,4 +180,4 @@ function mapStateToProps({ posts }) {
     }
 }
 
-export default connect(mapStateToProps, { votePost })(PostDetail)
+export default connect(mapStateToProps, { votePost, editPost, delePost })(PostDetail)

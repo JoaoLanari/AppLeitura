@@ -7,6 +7,8 @@ import {
     FETCH_POST_BY_ID,
     ADD_POST,
     VOTE_POST,
+    EDIT_POST,
+    DELETE_POST,
     GET_CATEGORIES,
     SELECT_CATEGORY
 } from '../actions/index'
@@ -30,7 +32,6 @@ function posts (state = {}, action) {
     }
 
     case ADD_POST :
-    console.log(id)
       return {
         ...state,
         [id]: {
@@ -46,7 +47,7 @@ function posts (state = {}, action) {
         }       
       }
     
-      case VOTE_POST :
+    case VOTE_POST :
       return {
         ...state,
         [id] :{
@@ -54,6 +55,19 @@ function posts (state = {}, action) {
             voteScore: newVoteScore
         }
       }
+
+    case EDIT_POST :
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+            title: title,
+            body: body
+        }
+      }
+    
+    case DELETE_POST :
+      return _.omit(state, id)    
 
     default :
       return state

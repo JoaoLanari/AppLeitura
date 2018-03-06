@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getCategories } from '../actions/index' 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch
 } from 'react-router-dom'
@@ -17,7 +17,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div>
           <AppNav />
           <Switch>
@@ -33,7 +33,7 @@ class App extends Component {
             />
           </Switch>
         </div>
-      </Router>
+      </BrowserRouter>
     )
   }
 }
