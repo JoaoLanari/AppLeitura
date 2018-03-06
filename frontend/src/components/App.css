@@ -70,6 +70,10 @@ nav a {
     font-size: 0;
 }
 
+.btn-edit-post {
+    background-image: url('../Icons/mode_edit_white_2x.png')
+}
+
 .card-panel {
     background: #FFFFFF;
     margin-bottom: 0.5px;

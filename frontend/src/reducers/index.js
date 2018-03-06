@@ -13,7 +13,7 @@ import {
 
 
 function posts (state = {}, action) {
-  const { id, timestamp, title, body, author, category, newScore, payload } = action
+  const { id, timestamp, title, body, author, category, newVoteScore, payload } = action
 
   switch (action.type) {    
     case FETCH_POSTS : 
@@ -25,11 +25,12 @@ function posts (state = {}, action) {
     case FETCH_POST_BY_ID : {
       return {
         ...state,
-        postSelected: payload
+        postSelected: id
       }
     }
 
     case ADD_POST :
+    console.log(id)
       return {
         ...state,
         [id]: {
@@ -43,6 +44,15 @@ function posts (state = {}, action) {
           deleted: false,
           commentCount: 0
         }       
+      }
+    
+      case VOTE_POST :
+      return {
+        ...state,
+        [id] :{
+          ...state[id],
+            voteScore: newVoteScore
+        }
       }
 
     default :

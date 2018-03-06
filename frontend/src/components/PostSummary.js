@@ -7,12 +7,23 @@ import {
     CardPanel,
     Dropdown,
     Button,
-    NavItem
+    NavItem,
+    Icon
 } from 'react-materialize'
 
-import { getAllPosts, getPostsByCategory, getPostById } from '../actions/index'
+import { getAllPosts, getPostsByCategory, getPostByIdAction, votePost } from '../actions/index'
 
 class PostSummary extends Component {
+
+    vote(vote, voteScore, id) {
+        let newVoteScore
+        if(vote === 'upVote') {
+            newVoteScore = voteScore + 1
+        } else  if(vote === 'downVote') {
+            newVoteScore = voteScore - 1
+        }
+        this.props.votePost(id, vote, newVoteScore)
+    }
 
     render() {
 
@@ -35,24 +46,37 @@ class PostSummary extends Component {
                         <Col offset='s1 m2 l2' s={10} m={8}>
                             <CardPanel>
                                 <Link
-                                    onClick={() => this.props.getPostById(post.id)}
-                                    to={`/${post.category}/${post.id}`} 
+                                    onClick={() => this.props.getPostByIdAction(post.id)}
+                                    to={`/${post.category}/${post.id}`}
                                     className='post-header'
                                 >
                                     <h5>{post.title}</h5>
                                 </Link>
                                 <p>{post.body}</p>
+                                <span>
+                                    <button 
+                                        onClick={() => this.vote('upVote', post.voteScore, post.id)} 
+                                        className='icon-button'
+                                    >
+                                        <Icon tiny>thumb_up</Icon>
+                                    </button>
+                                </span>
+                                <span>
+                                    <button onClick={() => this.vote('downVote', post.voteScore, post.id)}  className='icon-button'>
+                                        <Icon tiny>thumb_down</Icon>
+                                    </button>
+                                </span><br />
                                 <span style={{ fontSize: '0.8em' }}>Score: {post.voteScore}</span><br />
                                 <span style={{ fontSize: '0.8em' }}>
                                     Comentários: {post.commentCount}
-                            </span>
+                                </span>
                             </CardPanel>
                         </Col>
                     </Row>
                 ))}
                 <div className='btn-new-post'>
                     <Link to='/newpost' />
-            </div>
+                </div>
             </div>
         )
     }
@@ -61,18 +85,20 @@ class PostSummary extends Component {
 function mapStateToProps({ posts, categories }) {
 
     const ids = Object.keys(posts).map((key) => key)
-    
+    const categoriesArray = ['react', 'redux', 'udacity']
+
     return {
         selectedCategory: categories.selectedCategory,
         posts: ids.map((key) => ({
             ...posts[key]
         }))
-        
+
     }
 }
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
     getAllPosts,
     getPostsByCategory,
-    getPostById 
+    getPostByIdAction,
+    votePost
 })(PostSummary)

@@ -28,14 +28,7 @@ export function getPostsByCategory(category) {
   }
 }
 
-export function getPostById (id) {
-  return dispatch => {
-    axios.get(`${url}/posts/${id}`, { headers })
-      .then(res => dispatch(getPostByIdAction(res.data)))
-  }
-}
-
-export function addPost(newPost) {
+export function addPost( newPost ) {
   return dispatch => {
     axios.post(
       `${url}/posts`,
@@ -46,14 +39,14 @@ export function addPost(newPost) {
   }  
 }
 
-export function votePost(id, vote) {
+export function votePost( id, vote, newVoteScore) {
   return dispatch => {
-    axios.post(`${url}/posts/${id}`,
-      vote,
+    axios.post(
+      `${url}/posts/${id}`,
+      { option: vote } ,
       { headers }
     )
-      .then(dispatch(votePostAction(id, vote)))
-  }
+      .then( dispatch(votePostAction(id, newVoteScore)))}
 }
 
 
@@ -71,10 +64,10 @@ export function getPostsByCategoryAction(category, data) {
     payload: data
   }
 }
-export function getPostByIdAction(data) {
+export function getPostByIdAction(id) {
   return {
     type: FETCH_POST_BY_ID,
-    payload: data
+    id
   }
 }
 
@@ -90,11 +83,11 @@ export function addPostAction({ type, id, timestamp, title, body, author, catego
   }
 }
 
-export function votePostAction({ type, id, vote }) {
+export function votePostAction(id, newVoteScore) {
   return {
     type: VOTE_POST,
     id,
-    vote
+    newVoteScore
   }
 }
 
