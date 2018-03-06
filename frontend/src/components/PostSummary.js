@@ -11,7 +11,7 @@ import {
     Icon
 } from 'react-materialize'
 
-import { getAllPosts, getPostsByCategory, getPostByIdAction, votePost } from '../actions/index'
+import { getAllPosts, getPostsByCategory, getPostByIdAction, votePost, getAllComments } from '../actions/index'
 
 class PostSummary extends Component {
 
@@ -23,6 +23,11 @@ class PostSummary extends Component {
             newVoteScore = voteScore - 1
         }
         this.props.votePost(id, vote, newVoteScore)
+    }
+    
+    getPost(id) {
+        this.props.getPostByIdAction(id)
+        this.props.getAllComments(id)
     }
 
     render() {
@@ -46,7 +51,7 @@ class PostSummary extends Component {
                         <Col offset='s1 m2 l2' s={10} m={8}>
                             <CardPanel>
                                 <Link
-                                    onClick={() => this.props.getPostByIdAction(post.id)}
+                                    onClick={() => this.getPost(post.id)}
                                     to={`/${post.category}/${post.id}`}
                                     className='post-header'
                                 >
@@ -85,7 +90,6 @@ class PostSummary extends Component {
 function mapStateToProps({ posts, categories }) {
 
     const ids = Object.keys(posts).map((key) => key)
-    const categoriesArray = ['react', 'redux', 'udacity']
 
     return {
         selectedCategory: categories.selectedCategory,
@@ -100,5 +104,6 @@ export default connect(mapStateToProps, {
     getAllPosts,
     getPostsByCategory,
     getPostByIdAction,
-    votePost
+    votePost,
+    getAllComments
 })(PostSummary)

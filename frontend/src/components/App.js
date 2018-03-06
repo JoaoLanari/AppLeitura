@@ -31,6 +31,7 @@ class App extends Component {
             <Route path='/:category/:id' exact component={props => (
               <PostDetail {...props} />)} 
             />
+            
           </Switch>
         </div>
       </BrowserRouter>

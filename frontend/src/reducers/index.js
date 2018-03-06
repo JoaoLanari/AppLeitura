@@ -10,7 +10,9 @@ import {
     EDIT_POST,
     DELETE_POST,
     GET_CATEGORIES,
-    SELECT_CATEGORY
+    SELECT_CATEGORY,
+    FETCH_COMMENTS,
+    VOTE_COMMENT
 } from '../actions/index'
 
 
@@ -84,23 +86,43 @@ function categories (state = {}, action) {
       return {
         ...state,
         categories
-      }  
-      break
+      }
 
     case SELECT_CATEGORY :
       return {
         ...state,
         selectedCategory: category
       }
-      break
   
     default:
       return state
-      break
   }
+}
+
+function comments (state = {}, action) {
+  const { payload, id, newVoteScore } = action
+  switch (action.type) {
+    case FETCH_COMMENTS :
+      return _.mapKeys(payload, 'id')
+    
+    case VOTE_COMMENT :
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+            voteScore: newVoteScore
+        }
+      }
+  
+    default:
+      return state
+  }
+
+
 }
 
 export default combineReducers ({
   posts,
-  categories
+  categories,
+  comments
 })

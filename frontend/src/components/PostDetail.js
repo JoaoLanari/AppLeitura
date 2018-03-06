@@ -13,13 +13,22 @@ import {
     Toast
 } from 'react-materialize'
 
-import { votePost, editPost, delePost } from '../actions/index'
+import NewComment from './NewComment'
+import CommentDetail from './CommentDetail'
+
+import { votePost, editPost, delePost, getAllPosts, getAllComments } from '../actions/index'
 
 class PostDetail extends Component {
 
     state = {
         title: this.props.post.title,
         body: this.props.post.body
+    }
+
+    componentDidMount() {
+        if(this.props.post.id){
+            this.props.getAllComments(this.props.post.id)
+        }
     }
 
     setTitle(title) {
@@ -61,18 +70,22 @@ class PostDetail extends Component {
         event.preventDefault()
         const id = this.props.post.id
         this.props.delePost(id)
+        this.props.getAllPosts()
         this.props.history.push('/')
     }
 
+    timestampToDate(timestamp) {
+        const date = new Date(timestamp);
+        return date.toDateString()
+    }
+
     render() {
-        console.log(this.context)
         return (
             <div>
                 <Row>
                     <Col offset='s1 m2 l2' s={10} m={8}>
                         <CardPanel>
                             <Button
-                                href='/'
                                 onClick={(event) => this.delete(event)}
                                 floating
                                 className='red'
@@ -110,7 +123,14 @@ class PostDetail extends Component {
                                     waves='light'
                                     icon='done'
                                 />
+                                
                                 <p style={{color: 'green'}}>{this.state.menssage}</p>
+                                <Button
+                                    floating
+                                    className='red modal-close'
+                                    waves='light'
+                                    icon='close'
+                                />
                             </Modal>
                             <div className='btn-delet-post'>
                             </div>
@@ -123,6 +143,9 @@ class PostDetail extends Component {
                             </p>
                             <p>
                                 {this.props.post.body}
+                            </p>
+                            <p>
+                                {this.timestampToDate(this.props.post.timestamp)}
                             </p>
                             <span>
                                 <button
@@ -153,17 +176,13 @@ class PostDetail extends Component {
                             </span><br />
                             <span style={{ fontSize: '0.8em' }}>
                                 Comentários: {this.props.post.commentCount}
-                                <button className='icon-button'>
-                                    <Icon tiny>mode_edit</Icon>
-                                </button>
-                            </span>
-                            {/*<hr />
-                            <p>Autor: </p>
-                            <p>Conteúdo </p>
-                            <hr />
-                            <p>Autor: </p>
-                            <p>Conteúdo </p>*/}
-
+                            </span><br />
+                            <NewComment />
+                            {this.props.comments.map((comment, key) => (
+                                <div key={key}>
+                                    <CommentDetail comment={comment}/>                                    
+                                </div>                                
+                            ))}
                         </CardPanel>
                     </Col>
                 </Row>
@@ -172,12 +191,16 @@ class PostDetail extends Component {
     }
 }
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts, comments }) {
+    const ids = Object.keys(comments).map((key) => key)
     return {
         post: {
             ...posts[posts.postSelected]
-        }
+        },
+        comments: ids.map((key) => ({
+            ...comments[key]
+        }))
     }
 }
 
-export default connect(mapStateToProps, { votePost, editPost, delePost })(PostDetail)
+export default connect(mapStateToProps, { votePost, editPost, delePost, getAllPosts, getAllComments })(PostDetail)
