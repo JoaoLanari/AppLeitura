@@ -1,100 +1,100 @@
 body {
-    background: #212121;
-    font-family: Helvetica, Arial, sans-serif;
+  background: #212121;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 nav {
-    background: #9C27B0;
-    height: 75px;
-    text-align: center;
-    padding: 5px;
+  background: #9C27B0;
+  height: 75px;
+  text-align: center;
+  padding: 5px;
 }
 
 nav a {
-    font-size: 300%;
+  font-size: 300%;
 }
 
 .btn-nav-group {
-    text-align: center;
-    margin: 0 auto 5px auto;
-    background: #E1BEE7;
-    width: 100%;
+  text-align: center;
+  margin: 0 auto 5px auto;
+  background: #E1BEE7;
+  width: 100%;
 }
 
 .btn-nav-group a { 
-    color: #212121;
-    font-size: 20px;
+  color: #212121;
+  font-size: 20px;
 }
 
 .btn-nav a {
-    color: #212121;
-    font-size: 20px;
-    margin: 0;
+  color: #212121;
+  font-size: 20px;
+  margin: 0;
 }
 
 .nav-filter {
-    background: transparent;
-    color: #ffffff;
-    font-size: 10px;
-    text-align: right;
-    margin-bottom: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 10px;
+  text-align: right;
+  margin-bottom: 0;
 }
 
 .nav-filter span select option {
-    color:  #ffffff;
+  color:  #ffffff;
 }
 
 .nav-filter button {
-    background: transparent;
-    border: transparent;
-    font-size: 12px;
+  background: transparent;
+  border: transparent;
+  font-size: 12px;
 }
 
 .btn-new-post {
-    position: fixed;
-    right: 65px;
-    bottom: 25px;
+  position: fixed;
+  right: 65px;
+  bottom: 25px;
 }
 
 .btn-new-post a {
-    display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #7B1FA2;
-    background-image: url('../Icons/mode_edit_white_2x.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 28px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    font-size: 0;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #7B1FA2;
+  background-image: url('../Icons/mode_edit_white_2x.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-size: 0;
 }
 
 .btn-edit-post {
-    background-image: url('../Icons/mode_edit_white_2x.png')
+  background-image: url('../Icons/mode_edit_white_2x.png')
 }
 
 .card-panel {
-    background: #FFFFFF;
-    margin-bottom: 0.5px;
-    margin-top: 0.5px;
-    color: #212121;
+  background: #FFFFFF;
+  margin-bottom: 0.5px;
+  margin-top: 0.5px;
+  color: #212121;
 }
 
 .post-header {
-    color: #212121;
+  color: #212121;
 }
 
 .icon-button {
-    background: transparent;
-    border: none;
+  background: transparent;
+  border: none;
 }
 
 .icon-button:focus {
-    background: transparent;
-    border: none;  
+  background: transparent;
+  border: none;  
 }
 
 .modal-footer .btn-flat {
-    display: none;
+  display: none;
 }

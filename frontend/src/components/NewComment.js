@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'react-materialize'
 
-import { addComment, getAllComments } from '../actions/index'
+import { commentCountAction } from '../actions/postsActions' 
+import { addComment, getAllComments } from '../actions/commentsActions'
 
 import { makeid } from '../utils/random'
 
@@ -15,24 +16,26 @@ class NewComment extends Component {
 
   setAuthor(author) {
     this.setState({ author: author })
-    console.log(this.state.author)
   }
 
   setBody(body) {
     this.setState({ body: body })
-    console.log(this.state.body)
   }
   newComment(event) {
     event.preventDefault()
+    
     const id = makeid()
     const timestamp = new Date().getTime()
     const author = this.state.author
     const body = this.state.body
     const parentId = this.props.post.id
+    const newCommentsCount = this.props.post.commentCount + 1
+    
     const newComment = { id, timestamp, body, author, parentId }
+    
     this.props.addComment(newComment)
+    this.props.commentCountAction(parentId, newCommentsCount)
     this.props.getAllComments(parentId)
-
   }
 
   render() {
@@ -87,4 +90,8 @@ function mapStateToProps({ posts }) {
   }
 }
 
-export default connect(mapStateToProps, { addComment, getAllComments })(NewComment)
+export default connect(mapStateToProps, { 
+  addComment, 
+  getAllComments, 
+  commentCountAction 
+})(NewComment)

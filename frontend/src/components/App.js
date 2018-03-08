@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { getCategories } from '../actions/index' 
+import React from 'react'
 import {
   BrowserRouter,
   Route,
@@ -13,11 +11,9 @@ import PostDetail from './PostDetail'
 import AppNav from './AppNav'
 import './App.css'
 
-class App extends Component {
-
-  render() {
-    return (
-      <BrowserRouter>
+function App (props) {
+  return(
+    <BrowserRouter>
         <div>
           <AppNav />
           <Switch>
@@ -35,8 +31,7 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-    )
-  }
+  )
 }
 
-export default connect(null, { getCategories })(App)
+export default App

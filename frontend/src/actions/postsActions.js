@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import axios from 'axios'
 
 export const FETCH_POSTS = 'FETCH_POSTS'
@@ -8,17 +7,12 @@ export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
-
-export const GET_CATEGORIES = 'GET_CATEGORIES'
-export const SELECT_CATEGORY = 'SELECT_CATEGORY'
-
-export const FETCH_COMMENTS = 'FETCH_COMMENTS'
-export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const COMMENT_COUNT = 'COMMENT_COUNT'
+export const RESET_POST = 'RESET_POST'
 
 const url = 'http://localhost:3001'
 const headers = { 'Authorization': 'whatever-you-want' }
 
-//Posts Actions
 export function getAllPosts() {
   return dispatch => {
     axios.get(`${url}/posts`,{ headers })
@@ -129,73 +123,16 @@ export function deletePostAction (id) {
   }
 }
 
-// Category Actions
-export function getCategories() {
-  return dispatch => {
-    axios.get(`${url}/categories`, { headers })
-      .then(res => dispatch(getCategoriesAction(res.data)))
-  }
-}
-
-export function getCategoriesAction(data) {
+export function commentCountAction (id, newCommentCount) {
   return {
-    type: GET_CATEGORIES,
-    payload: data
-  }
-}
-
-export function selectCategoryAction (category) {
-  return {
-    type: SELECT_CATEGORY,
-    category
-  }
-}
-
-//Comments Action
-
-export function getAllComments (id) {
-  return dispatch => {
-    axios.get(
-      `${url}/posts/${id}/comments`, 
-      { headers }
-    )      
-      .then(res => dispatch(getAllCommentsAction(res.data)))
-      .catch(err => console.log(err))
-  }
-}
-
-export function addComment(comment) {
-  return dispatch => {
-    axios.post(
-      `${url}/comments`,
-      comment,
-      { headers }
-    )
-  }
-}
-
-export function voteComment (id, vote, newVoteScore) {
-  return dispatch => {
-    axios.post(
-      `${url}/comments/${id}`,
-      { option: vote },
-      {headers}
-    )
-      .then(dispatch(voteCommentAction(id, newVoteScore)))
-  }
-}
-
-export function getAllCommentsAction(data) {
-  return {
-    type: FETCH_COMMENTS,
-    payload: data
-  }
-}
-
-export function voteCommentAction(id, newVoteScore) {
-  return {
-    type: VOTE_COMMENT,
+    type: COMMENT_COUNT,
     id,
-    newVoteScore
+    newCommentCount
   }
 }
+
+export function resetPostAction () {
+  return {
+    type: RESET_POST
+  }
+} 

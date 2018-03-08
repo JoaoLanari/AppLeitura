@@ -1,28 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories, selectCategoryAction, getAllPosts, getPostsByCategory } from '../actions/index' 
 import { Link } from 'react-router-dom'
+
+import { getAllPosts, getPostsByCategory, resetPostAction } from '../actions/postsActions'
+import { getCategories, selectCategoryAction } from '../actions/categoriesActions'
+import { resetCommentsAction } from '../actions/commentsActions'
 
 class AppNav extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
+    this.props.resetPostAction()
     this.props.getAllPosts()
     this.props.getCategories()
   }
 
   selectCategory(category) {
-    
+    this.props.resetPostAction()
+    this.props.resetCommentsAction()   
     if (category === 'all'){
       this.props.selectCategoryAction(category)
       this.props.getAllPosts()
-    } else{
+    } else {
       this.props.selectCategoryAction(category)
       this.props.getPostsByCategory(category)
     }
   }
 
   render() {
-
+    const { categories } = this.props
     return (
       <div>
         <nav>
@@ -34,8 +39,8 @@ class AppNav extends Component {
           </Link>
         </nav>
         <div className='btn-nav-group'>
-          {this.props.categories && (
-            this.props.categories.categories.map((category, key) => (
+          {categories && (
+            categories.categories.map((category, key) => (
               <Link
               key={key}
               onClick={() => this.selectCategory(category.name)} 
@@ -64,5 +69,7 @@ export default connect(mapStateToProps, {
   getCategories, 
   selectCategoryAction, 
   getAllPosts, 
-  getPostsByCategory 
+  getPostsByCategory,
+  resetCommentsAction,
+  resetPostAction
 })(AppNav)

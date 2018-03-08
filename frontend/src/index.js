@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import registerServiceWorker from './registerServiceWorker'
 
 import App from './components/App'
-import reducer from './reducers'
+import reducer from './reducers/combineReducers'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -19,8 +19,8 @@ const store = createStore(
 
 
 ReactDOM.render(
-<Provider store={store}>
-  <App />
-</Provider>
-, document.getElementById('root'))
+    <Provider store={store}>
+        <App />
+    </Provider>
+    , document.getElementById('root'))
 registerServiceWorker()
