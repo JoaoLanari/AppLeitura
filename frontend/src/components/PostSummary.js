@@ -8,10 +8,10 @@ import {
   Dropdown,
   Button,
   NavItem,
-  Icon,
-  Modal,
-  Input
+  Icon
 } from 'react-materialize'
+import sortBy from 'sort-by'
+
 
 import { getPostByIdAction, votePost, delePost, editPost } from '../actions/postsActions'
 import { getAllComments } from '../actions/commentsActions'
@@ -19,10 +19,20 @@ import { getAllComments } from '../actions/commentsActions'
 import PostEdit from './PostEdit'
 
 import { voteHelper } from '../utils/voteHelper'
-import { sleep } from '../utils/sleep'
 
 class PostSummary extends Component {
  
+  state= {
+    filterName: 'Score',
+    filter: '-voteScore'
+  }
+
+  setFiter(event, filterName, filter) {
+    event.preventDefault()
+    this.setState({ filterName: filterName })
+    this.setState({ filter: filter })
+  }
+
   vote(vote, voteScore, id) {
     let newVoteScore = voteHelper(vote, voteScore)
     this.props.votePost(id, vote, newVoteScore)
@@ -46,15 +56,15 @@ class PostSummary extends Component {
           <Col offset='s1 m2 l2' s={10} m={8}>
             <span><b>Ordenar por:</b></span>
             <Dropdown trigger={
-              <Button>Drop me!</Button>
+              <Button>{this.state.filterName}</Button>
             }>
-              <NavItem onClick={() => console.log('opa')}>Score</NavItem>
-              <NavItem>Data de Publicação</NavItem>
+              <NavItem onClick={(event) => this.setFiter(event, 'Score', '-voteScore')}>Score</NavItem>
+              <NavItem onClick={(event) => this.setFiter(event, 'Data', '-timestamp')}>Data de Publicação</NavItem>
             </Dropdown>
           </Col>
           <Col s={1} m={2} />
         </Row>
-        {posts.map((post, key) => (
+        {posts.sort(sortBy(this.state.filter)).map((post, key) => (
           <Row key={key}>
             <Col offset='s1 m2 l2' s={10} m={8}>
               <CardPanel>

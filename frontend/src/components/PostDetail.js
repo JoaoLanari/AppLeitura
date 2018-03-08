@@ -9,6 +9,7 @@ import {
   Button,
   Input
 } from 'react-materialize'
+import sortBy from 'sort-by'
 
 import { 
   votePost, 
@@ -175,7 +176,7 @@ class PostDetail extends Component {
                 Comentários: {this.props.post.commentCount}
               </span><br />
               <NewComment />
-              {this.props.comments.map((comment, key) => (
+              {this.props.comments.sort(sortBy('-voteScore')).map((comment, key) => (
                 <div key={key}>
                   <CommentDetail
                     id={this.props.post.id}

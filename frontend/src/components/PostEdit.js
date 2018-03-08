@@ -8,7 +8,6 @@ import {
 
 import { editPost } from '../actions/postsActions'
 
-import { voteHelper } from '../utils/voteHelper'
 import { sleep } from '../utils/sleep'
 
 class PostSummary extends Component {
