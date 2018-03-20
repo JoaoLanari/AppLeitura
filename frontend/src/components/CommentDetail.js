@@ -16,10 +16,6 @@ class CommentDetail extends Component {
     menssage: ''
   }
 
-  componentDidMount() {
-    console.log(this.props.comment.body)
-  }
-
   setBody(body) {
     this.setState({ body: body })
   }

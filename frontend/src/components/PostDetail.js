@@ -5,9 +5,7 @@ import {
   Icon,
   Row,
   Col,
-  Modal,
-  Button,
-  Input
+  Button
 } from 'react-materialize'
 import sortBy from 'sort-by'
 
@@ -15,12 +13,15 @@ import {
   votePost, 
   editPost, 
   delePost, 
-  getAllPosts
+  getAllPosts,
+  getPostById
 } from '../actions/postsActions'
 import { getAllComments } from '../actions/commentsActions'
 
 import NewComment from './NewComment'
 import CommentDetail from './CommentDetail'
+import PostEdit from './PostEdit'
+import Error from './Error'
 
 import { sleep } from '../utils/sleep'
 import { voteHelper } from '../utils/voteHelper'
@@ -29,13 +30,17 @@ import { timestampToDate } from '../utils/timestampToDate'
 class PostDetail extends Component {
 
   state = {
-    title: this.props.post.title,
-    body: this.props.post.body
+    title: '',
+    body: '',
+    showPost: true
   }
 
   componentDidMount() {
-    if (this.props.post.id) {
-      this.props.getAllComments(this.props.post.id)
+    const locationArray = window.location.href.split('/')
+    const thePost = locationArray[4]
+    this.props.getPostById(thePost)
+    if ((this.props.post.id || thePost)) {
+      this.props.getAllComments(thePost)
     }
   }
 
@@ -51,6 +56,13 @@ class PostDetail extends Component {
     this.setState({ menssage: 'Alterações Salvas!!!' })
     sleep(1500).then(() => {
       this.setState({ menssage: '' })
+    })
+  }
+
+  updateForm() {
+    this.setState({
+      title: this.props.post.title,
+      body: this.props.post.body,
     })
   }
 
@@ -80,6 +92,7 @@ class PostDetail extends Component {
   render() {
     return (
       <div>
+        {this.props.post.id && (
         <Row>
           <Col offset='s1 m2 l2' s={10} m={8}>
             <CardPanel>
@@ -91,7 +104,8 @@ class PostDetail extends Component {
                 icon='delete'
                 style={{ float: 'right', margin: '3px' }}
               />
-              <Modal
+              <PostEdit post={this.props.post} />
+              {/*<Modal
                 header={`Editar Post: ${this.props.post.title}`}
                 trigger={
                   <Button
@@ -129,7 +143,7 @@ class PostDetail extends Component {
                   waves='light'
                   icon='close'
                 />
-              </Modal>
+                </Modal>*/}
               <div className='btn-delet-post'>
               </div>
               <div className='post-header'>
@@ -188,6 +202,10 @@ class PostDetail extends Component {
             </CardPanel>
           </Col>
         </Row>
+        )}
+        {!this.props.post.id && (
+          <Error />
+        )}
       </div>
     )
   }
@@ -197,7 +215,7 @@ function mapStateToProps({ posts, comments }) {
   const ids = Object.keys(comments).map((key) => key)
   return {
     post: {
-      ...posts[posts.postSelected]
+      ...posts
     },
     comments: ids.map((key) => ({
       ...comments[key]
@@ -210,5 +228,6 @@ export default connect(mapStateToProps, {
   editPost, 
   delePost, 
   getAllPosts, 
-  getAllComments 
+  getAllComments,
+  getPostById
 })(PostDetail)

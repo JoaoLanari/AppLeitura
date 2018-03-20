@@ -27,6 +27,13 @@ export function getPostsByCategory(category) {
   }
 }
 
+export function getPostById(id) {
+  return dispatch => {
+    axios.get(`${url}/posts/${id}`, { headers })
+      .then(res => dispatch(getPostByIdAction(res.data)))
+  }
+}
+
 export function addPost(newPost) {
   return dispatch => {
     axios.post(
@@ -80,10 +87,10 @@ export function getPostsByCategoryAction(category, data) {
     payload: data
   }
 }
-export function getPostByIdAction(id) {
+export function getPostByIdAction(data) {
   return {
     type: FETCH_POST_BY_ID,
-    id
+    payload: data
   }
 }
 

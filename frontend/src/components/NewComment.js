@@ -66,7 +66,7 @@ class NewComment extends Component {
         <Button
           onClick={(event) => this.newComment(event)}
           floating
-          className='green modal-close'
+          className='green'
           waves='light'
           icon='done'
         />
@@ -85,7 +85,7 @@ class NewComment extends Component {
 function mapStateToProps({ posts }) {
   return {
     post: {
-      ...posts[posts.postSelected]
+      ...posts
     }
   }
 }

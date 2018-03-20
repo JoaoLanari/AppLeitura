@@ -8,10 +8,21 @@ import { resetCommentsAction } from '../actions/commentsActions'
 
 class AppNav extends Component {
 
+  state= {
+    
+  }
+
   componentWillMount() {
-    this.props.resetPostAction()
-    this.props.getAllPosts()
+    const urlArray = window.location.href.split('/')
+    const location = urlArray[3]
     this.props.getCategories()
+    this.props.resetPostAction()
+    if(location.length === 0) {
+      this.props.getAllPosts()
+    } else if(!urlArray[4]) {
+      this.props.selectCategoryAction(location)
+      this.props.getPostsByCategory(location)
+    }
   }
 
   selectCategory(category) {
