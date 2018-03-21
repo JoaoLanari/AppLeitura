@@ -34,7 +34,6 @@ function posts(state = {}, action) {
       return _.mapKeys(payload, 'id')
 
     case FETCH_POST_BY_ID: {
-      console.log(payload)
       return payload
     }
 

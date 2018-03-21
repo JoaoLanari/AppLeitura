@@ -31,6 +31,7 @@ export function getPostById(id) {
   return dispatch => {
     axios.get(`${url}/posts/${id}`, { headers })
       .then(res => dispatch(getPostByIdAction(res.data)))
+      .catch(err => dispatch(getPostByIdAction({Post: 'NotFound'})))
   }
 }
 

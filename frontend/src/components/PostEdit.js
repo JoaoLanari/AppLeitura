@@ -6,7 +6,7 @@ import {
   Input
 } from 'react-materialize'
 
-import { editPost } from '../actions/postsActions'
+import { editPost, getPostById } from '../actions/postsActions'
 
 import { sleep } from '../utils/sleep'
 
@@ -40,7 +40,9 @@ class PostSummary extends Component {
     const body = this.state.body
 
     this.props.editPost(id, title, body)
-    this.setMessage()
+    if(this.props.postSelected) {
+      this.props.getPostById(id)
+    }
   }
 
   render() {
@@ -90,4 +92,4 @@ class PostSummary extends Component {
 }
 
 
-export default connect(null, { editPost })(PostSummary)
+export default connect(null, { editPost, getPostById })(PostSummary)
